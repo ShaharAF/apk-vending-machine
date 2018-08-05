@@ -1,0 +1,16 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="android:Theme.Material.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:colorPrimary">#187BC4</item>
+        <item name="android:colorPrimaryDark">#187BC4</item>
+        <item name="android:colorAccent">#77A41E</item>
+        <item name="android:colorButtonNormal">#77A41E</item>
+    </style>
+
+    <style name="AppTheme.FullScreen">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>

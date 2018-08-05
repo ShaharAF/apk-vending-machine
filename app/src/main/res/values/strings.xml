@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Candy Shopping App</string>
+    <string name="buy_mm"><![CDATA[Buy M&M]]></string>
+    <string name="buy_skittles">Buy Skittles</string>
+    <string name="register">Register</string>
+    <string name="buy">Purchase</string>
+    <string name="back">Back</string>
+    <string name="total">Total: </string>
+    <string name="mandm"><![CDATA[M&M]]></string>
+    <string name="skittles">Skittles</string>
+    <string name="customer_user_id">Customer User Id(Email address)</string>
+    <string name="title_register">Register</string>
+</resources>
