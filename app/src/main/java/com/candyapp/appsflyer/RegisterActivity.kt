@@ -3,8 +3,10 @@ package com.candyapp.appsflyer
 import android.app.Activity
 import android.app.AlertDialog
 import android.os.Bundle
+import com.appsflyer.AFHelper
 import com.appsflyer.AFInAppEventType
 import com.appsflyer.AppsFlyerLib
+import com.appsflyer.AppsFlyerProperties
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -16,13 +18,9 @@ class RegisterActivity:Activity() {
         btnRegister.setOnClickListener {
             AppsFlyerLib.getInstance().setCustomerUserId(inputCustomerUserId?.text?.toString())
             AppsFlyerLib.getInstance().trackEvent(this@RegisterActivity, AFInAppEventType.COMPLETE_REGISTRATION, null)
-            AlertDialog.Builder(this@RegisterActivity)
-                    .setPositiveButton(android.R.string.ok, {dialog, which -> dialog.dismiss() })
-                    .setMessage("Event Sent: ${AFInAppEventType.COMPLETE_REGISTRATION} \n null")
-                    .create()
-                    .show()
-
+            DialogFactory.showEventSent(this@RegisterActivity, AFInAppEventType.COMPLETE_REGISTRATION, null)
         }
         btnBack.setOnClickListener { finish() }
+        inputCustomerUserId.setText(AppsFlyerProperties.getInstance().getString(AppsFlyerProperties.APP_USER_ID))
     }
 }

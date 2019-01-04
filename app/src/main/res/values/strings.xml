@@ -10,4 +10,23 @@
     <string name="skittles">Skittles</string>
     <string name="customer_user_id">Customer User Id(Email address)</string>
     <string name="title_register">Register</string>
+    <string name="conversion">Conversion Data</string>
+    <string name="cv_gaid">GAID: </string>
+    <string name="cv_afid">AppsFlyer ID: </string>
+    <string name="cv_customer_user_id">Customer User Id:</string>
+    <string name="cv_gp_referrer">Google Referrer:</string>
+    <string name="cv_data">Conversion Data:</string>
+    <string name="dev_mode_on">Developer Mode ON!</string>
+    <string name="event_sent_prompt_intro">Below you see the In App Event that was sent to the AppsFlyer Server. You will see the same names and values if you download the In-App Events Raw Data Report via the AppsFlyer Dashboard.</string>
+    <string name="event_name">Event Name:</string>
+    <string name="event_value">Event Value:</string>
+    <string name="event_value_sample"><![CDATA[{\"af_revenue\":6170,\"af_currency\":\"USD\",\"af_quantity\":1234,\"af_price\":5,\"af_content\":\"M&M\"}]]></string>
+    <string name="event_name_sample">af_purchase</string>
+    <string name="appsflyer_id">AppsFlyer ID</string>
+    <string name="appsflyer_id_prompt_intro">Below you will see the AppsFlyer ID value that is associated with the install. You will see this same AppsFlyer ID value in the AppsFlyer ID column if you download the Install or In-App Events Raw Data Report via the AppsFlyer Dashboard.</string>
+    <string name="google_referrer_value">Google Play Referrer value:</string>
+    <string name="customer_user_id_prompt_intro">Below you will see the Customer User ID value that is associated with the install. You will see this same Customer User ID value in the Customer User ID column if you download the Install or In-App Events Raw Data Report via the AppsFlyer Dashboard.</string>
+    <string name="customer_user_id_not_set">No Customer User ID has been defined yet.</string>
+    <string name="google_referrer_not_set">Goolge Play Referrer could not be fetched.</string>
+    <string name="google_referrer_prompt_intro">Below you will see the Google Play Referrer value that is associated with the install. You will see this same Google Play Referrer value in the Google Play Referrer column if you download the Install or In-App Events Raw Data Report via the AppsFlyer Dashboard.</string>
 </resources>

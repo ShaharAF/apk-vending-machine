@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp"
+    xmlns:tools="http://schemas.android.com/tools">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/google_referrer_prompt_intro"/>
+    <LinearLayout
+        android:id="@+id/layoutGoogleReferrer"
+        android:visibility="gone"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/google_referrer_value"/>
+        <TextView
+            android:id="@+id/tvGoogleReferrer"
+            android:textColor="@color/colorPrimary"
+            android:textIsSelectable="true"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="af_tranid=IIOmnroEQdRoAqL66c0sZg"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tvGoogleReferrerNotSet"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/google_referrer_not_set"/>
+
+</LinearLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import com.appsflyer.AFHelper
 import com.appsflyer.AFInAppEventParameterName
 import com.appsflyer.AFInAppEventType
 import com.appsflyer.AppsFlyerLib
@@ -63,11 +64,7 @@ class BuyActivity: Activity() {
             params.put(AFInAppEventParameterName.PRICE, item.price)
             params.put(AFInAppEventParameterName.CONTENT, item.name)
             AppsFlyerLib.getInstance().trackEvent(applicationContext, AFInAppEventType.PURCHASE, params)
-            AlertDialog.Builder(this@BuyActivity)
-                    .setPositiveButton(android.R.string.ok, {dialog, which -> dialog.dismiss() })
-                    .setMessage("Event Sent: ${AFInAppEventType.PURCHASE} \n ${Gson().toJson(params)}")
-                    .create()
-                    .show()
+            DialogFactory.showEventSent(this@BuyActivity, AFInAppEventType.PURCHASE, AFHelper.convertToJsonObject(params).toString())
         }
         btnBack.setOnClickListener { finish() }
     }

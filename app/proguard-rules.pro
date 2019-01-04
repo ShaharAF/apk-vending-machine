@@ -19,3 +19,10 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keep class com.appsflyer.** { *; }
+-keep class com.google.** { *; }
+
+
+-dontwarn com.android.installreferrer
+-dontwarn com.google.**
+-dontwarn com.appsflyer.**

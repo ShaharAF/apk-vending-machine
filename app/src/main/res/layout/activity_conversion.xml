@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:divider="@drawable/divider_drawable"
+        android:showDividers="middle"
+        android:dividerPadding="-8dp"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:id="@+id/rowGAID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cv_gaid" />
+
+            <TextView
+                android:id="@+id/tvGAID"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:textIsSelectable="true"
+                android:maxLines="3"
+                tools:text="xxxvvdsvweojiofewjojgwojioewjgojoiwjegiojiogeowjojiogjoewjojo"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rowAFID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cv_afid" />
+
+            <TextView
+                android:id="@+id/tvAppsFlyerId"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginStart="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true"
+                tools:text="AppsFlyer ID"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rowCustomerUserId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cv_customer_user_id" />
+
+            <TextView
+                android:id="@+id/tvCustomerUserId"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginStart="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true"
+                tools:text="Customer User ID"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cv_gp_referrer" />
+            <TextView
+                android:id="@+id/tvGoogleReferrer"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginStart="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true"
+                android:text="@string/cv_gp_referrer" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/rowCVData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cv_data" />
+            <TextView
+                android:id="@+id/tvCVData"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginStart="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true"
+                android:text="@string/cv_data" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

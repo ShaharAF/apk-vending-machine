@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/btnBuyMM"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="80dp"
-        android:minWidth="240dp"
         android:text="@string/buy_mm"
         android:textColor="#fff"
         android:textAllCaps="false"
@@ -21,10 +22,9 @@
 
     <Button
         android:id="@+id/btnBuySkittles"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="80dp"
-        android:minWidth="240dp"
         android:text="@string/buy_skittles"
         android:textColor="#fff"
         android:textAllCaps="false"
@@ -32,11 +32,20 @@
 
     <Button
         android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="80dp"
-        android:minWidth="240dp"
         android:text="@string/register"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/btnConversionData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="80dp"
+        android:text="@string/conversion"
         android:textAllCaps="false"
         android:textColor="#fff"
         android:textSize="30sp" />

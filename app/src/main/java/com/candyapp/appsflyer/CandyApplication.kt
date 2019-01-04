@@ -8,6 +8,10 @@ import com.appsflyer.AppsFlyerConversionListener
 import com.appsflyer.AppsFlyerLib
 
 class CandyApplication: Application(), AppsFlyerConversionListener {
+    companion object {
+        var devMode = BuildConfig.DEBUG
+        var cv: MutableMap<String, String>? = null
+    }
     val TAG = CandyApplication::class.java.simpleName
     val appsFlyerDevKey: String = "HvYAWjCjQXts7xbPJuTjfn"
     override fun onCreate() {
@@ -35,6 +39,7 @@ class CandyApplication: Application(), AppsFlyerConversionListener {
         conversionData?.let { data ->
             data.map{ Log.d(AppsFlyerLib.LOG_TAG,"key: ${it.key} Value: ${it.value}") }
         }
+        cv = conversionData
     }
 
     override fun onInstallConversionFailure(p0: String?) {
