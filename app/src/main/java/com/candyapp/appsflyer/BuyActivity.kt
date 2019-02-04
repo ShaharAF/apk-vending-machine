@@ -38,7 +38,7 @@ class BuyActivity: Activity() {
         quatity = 1
         totalPrice = quatity * item.price
         imageView.setImageResource(item.imageRes)
-        textPrice.text = "${item.price} ${currency}"
+        textPrice.text = " × ${item.price} ${currency}"
         textTitle.text = item.name
         textTotalPrice.text = "${item.price} ${currency}"
         inputQuantity.setText("$quatity")

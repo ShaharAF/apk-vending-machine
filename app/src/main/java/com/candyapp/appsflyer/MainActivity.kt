@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : Activity() {
 
-    val onButtonClick: View.OnClickListener = object : View.OnClickListener {
+    private val onButtonClick: View.OnClickListener = object : View.OnClickListener {
         override fun onClick(v: View?) {
             val evtParams = mutableMapOf<String, Any?>()
             with(Intent(this@MainActivity, BuyActivity::class.java)) {
@@ -52,6 +52,11 @@ class MainActivity : Activity() {
             btnConversionData.setOnClickListener { startActivity(Intent(this@MainActivity, ConversionActivity::class.java)) }
         } else {
             btnConversionData.visibility = View.GONE
+        }
+
+        imgViewLogo.setOnLongClickListener {
+            startActivity(Intent(this@MainActivity, ConversionActivity::class.java));
+            true
         }
     }
 }

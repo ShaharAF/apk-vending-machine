@@ -38,6 +38,15 @@ class CandyApplication: Application(), AppsFlyerConversionListener {
         Log.d(AppsFlyerLib.LOG_TAG, "[$TAG][onInstallConversionDataLoaded]")
         conversionData?.let { data ->
             data.map{ Log.d(AppsFlyerLib.LOG_TAG,"key: ${it.key} Value: ${it.value}") }
+            if(data["is_first_launch"] == "true") {
+                if(data["campaign"] == "sales") {
+                    val discount = data["discount"]?.toInt() ?: 0
+                    with(Intent(this, BuyDiscountActivity::class.java)) {
+                        putExtra(BuyDiscountActivity.PARAM_DISCOUNT_PERCENT, discount)
+                        startActivity(this@with)
+                    }
+                }
+            }
         }
         cv = conversionData
     }

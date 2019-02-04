@@ -30,6 +30,22 @@
         <activity android:name=".BuyActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ConversionActivity" />
+        <activity android:name=".BuyDiscountActivity">
+            <intent-filter>
+                <action   android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data     android:scheme="candyapp" />
+            </intent-filter>
+            <intent-filter>
+                <action   android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https"
+                    android:host="candyapp.onelink.me"
+                    android:pathPrefix="/4IvE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
