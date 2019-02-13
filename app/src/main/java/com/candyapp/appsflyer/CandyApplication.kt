@@ -17,10 +17,11 @@ class CandyApplication: Application(), AppsFlyerConversionListener {
     override fun onCreate() {
         super.onCreate()
         Log.d(AppsFlyerLib.LOG_TAG, "[$TAG][onCreate]")
+        AppsFlyerLib.getInstance().init(appsFlyerDevKey, this)
         AppsFlyerLib.getInstance().setCollectIMEI(false)
         AppsFlyerLib.getInstance().setDebugLog(true)
-        AppsFlyerLib.getInstance().registerConversionListener(this, this)
-        AppsFlyerLib.getInstance().startTracking(this, appsFlyerDevKey)
+        AppsFlyerLib.getInstance().enableUninstallTracking("717887381464")
+        AppsFlyerLib.getInstance().startTracking(this)
     }
 
     override fun onAppOpenAttribution(conversionData: MutableMap<String, String>?) {

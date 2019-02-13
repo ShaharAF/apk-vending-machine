@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#d2F2F3">
 
     <LinearLayout
         android:orientation="vertical"
@@ -11,7 +12,8 @@
         <FrameLayout
             android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#fff">
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_gravity="center_horizontal"
@@ -42,7 +44,7 @@
                 android:text="@string/buy_skittles"/>
             <EditText
                 android:id="@+id/inputQuantity"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="24sp"
@@ -55,8 +57,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
-                android:textColor="#f00"
                 tools:text=" × $10"/>
+        </LinearLayout>
+        <LinearLayout
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textSize="24sp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/cost"/>
+            <TextView
+                android:minWidth="100dp"
+                android:gravity="end"
+                android:id="@+id/textOrigPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:textSize="24sp"
+                tools:text="$10"/>
+
         </LinearLayout>
         <LinearLayout
             android:paddingTop="4dp"
@@ -73,7 +101,7 @@
                 android:textColor="#f00"
                 android:gravity="end"
                 android:textSize="24sp"
-                tools:text="@string/discount"/>
+                android:text="@string/discount"/>
             <TextView
                 android:id="@+id/textViewDiscount"
                 android:layout_width="wrap_content"
@@ -97,7 +125,8 @@
             android:paddingRight="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="bottom">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -107,23 +136,27 @@
                 android:layout_marginEnd="10dp"
                 android:text="@string/total"/>
             <TextView
+                android:minWidth="100dp"
                 android:id="@+id/textTotalPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#f00"
-                android:layout_gravity="end"
+                android:gravity="end"
                 android:textStyle="bold"
-                android:textSize="28sp"
+                android:textSize="36sp"
                 tools:text="$10"/>
 
         </LinearLayout>
 
         <RelativeLayout
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
                 android:textColor="#fff"
                 android:id="@+id/btnPurchase"
+                android:padding="20dp"
+                android:minWidth="140dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -131,6 +164,8 @@
             <Button
                 android:textColor="#fff"
                 android:id="@+id/btnBack"
+                android:padding="20dp"
+                android:minWidth="140dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"

@@ -31,4 +31,6 @@
     <string name="google_referrer_prompt_intro">Below you will see the Google Play Referrer value that is associated with the install. You will see this same Google Play Referrer value in the Google Play Referrer column if you download the Install or In-App Events Raw Data Report via the AppsFlyer Dashboard.</string>
     <string name="discount_percent">-50%</string>
     <string name="discount">Discount: </string>
+    <string name="cost">Cost: </string>
+    <string name="retargeting_info">Retargeting Data:</string>
 </resources>

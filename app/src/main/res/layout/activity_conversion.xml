@@ -118,5 +118,26 @@
                 android:text="@string/cv_data" />
 
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/rowRetargetData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/retargeting_info" />
+            <TextView
+                android:id="@+id/tvRetargetData"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginStart="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true"
+                android:text="@string/retargeting_info" />
+
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

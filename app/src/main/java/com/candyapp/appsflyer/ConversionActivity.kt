@@ -36,9 +36,17 @@ class ConversionActivity: Activity() {
         tvGAID.text = AppsFlyerProperties.getInstance().getString("advertiserId")
         tvAppsFlyerId.text = AppsFlyerProperties.getInstance().getString("uid")
         tvCVData.text = getConversionDataText().takeIf { it.isNotEmpty() } ?: "Initializing"
+        tvRetargetData.text = getRetargetingDataText().takeIf { it.isNotEmpty() } ?: "No Re-targeting Data!"
     }
 
     private fun getConversionDataText(map: Map<String, String>? = getConversionDataMap()): String {
+        val sb = StringBuffer()
+        map?.map {
+            sb.append("${it.key} : ${it.value}\n")
+        }
+        return sb.toString()
+    }
+    private fun getRetargetingDataText(map: Map<String, String>? = getRetargetingDataMap()): String {
         val sb = StringBuffer()
         map?.map {
             sb.append("${it.key} : ${it.value}\n")
@@ -69,4 +77,28 @@ class ConversionActivity: Activity() {
 
         return conversionData
     }
+
+    private fun getRetargetingDataMap(): Map<String, String>? {
+        val sharedPreferences = getSharedPreferences("retargeting", 0)
+        val json_data = sharedPreferences.getString("json_data", null) ?: return null
+        val conversionData = HashMap<String, String>()
+
+        try {
+            val jsonObject = JSONObject(json_data)
+            val iterator = jsonObject.keys()
+            while (iterator.hasNext()) {
+                val key = iterator.next() as String
+                val value = jsonObject.getString(key)
+                if (!TextUtils.isEmpty(value) && "null" != value) {
+                    conversionData[key] = value
+                }
+            }
+        } catch (e: JSONException) {
+            AFLogger.afErrorLog(e.message, e)
+            return null
+        }
+
+        return conversionData
+    }
+
 }
