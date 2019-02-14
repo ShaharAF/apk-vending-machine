@@ -2,6 +2,8 @@
     <string name="app_name">Candy Shopping App</string>
     <string name="buy_mm"><![CDATA[Buy M&M]]></string>
     <string name="buy_skittles">Buy Skittles</string>
+    <string name="buy_mm_discount"><![CDATA[Buy M&M 25% OFF]]></string>
+    <string name="buy_skittles_discount"><![CDATA[Buy Skittles 20% OFF]]></string>
     <string name="register">Register</string>
     <string name="buy">Purchase</string>
     <string name="back">Back</string>
@@ -33,4 +35,8 @@
     <string name="discount">Discount: </string>
     <string name="cost">Cost: </string>
     <string name="retargeting_info">Retargeting Data:</string>
+    <string name="unsupport_product">Sorry, this campaign is over!</string>
+    <string name="wrong_parameter">Can not find af_ad from the link!</string>
+    <string name="buy_it_anyway">Buy it anyway</string>
+    <string name="please_wait">Please wait...</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.candyapp.appsflyer
 
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -9,13 +10,25 @@ import android.widget.TextView
 import java.util.*
 import android.widget.Toast
 import android.content.Context.CLIPBOARD_SERVICE
+import android.content.DialogInterface
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import com.appsflyer.AppsFlyerLib
 import com.appsflyer.AppsFlyerProperties
 
 
 object DialogFactory {
+    fun showAlert(context: Context, message: String, b: (AlertDialog.Builder.() -> Unit)? = null){
+        val adb = AlertDialog.Builder(context)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok) { dialog, _ ->  dialog.dismiss() }
+        b?.let {
+            adb.b()
+        }
+        adb.create().show()
+    }
+
     fun showEventSent(context: Context, name: String, value: String?) {
         val adb = AlertDialog.Builder(context)
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_evt_sent, null, false)
@@ -52,6 +65,13 @@ object DialogFactory {
             dialogView.findViewById<ViewGroup>(R.id.layoutCustomerUserId).visibility = View.VISIBLE
             dialogView.findViewById<TextView>(R.id.tvCustomerUserIdNotSet).visibility = View.GONE
         }
+        adb.setView(dialogView)
+        adb.setPositiveButton(android.R.string.ok) { dialog, _ -> dialog.dismiss() }.create().show()
+    }
+
+    fun showProgressBar(context: Context) {
+        val adb = AlertDialog.Builder(context)
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_progress, null, false)
         adb.setView(dialogView)
         adb.setPositiveButton(android.R.string.ok) { dialog, _ -> dialog.dismiss() }.create().show()
     }

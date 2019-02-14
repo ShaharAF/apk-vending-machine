@@ -42,6 +42,7 @@ class BuyActivity: Activity() {
         textTitle.text = item.name
         textTotalPrice.text = "${item.price} ${currency}"
         inputQuantity.setText("$quatity")
+        inputQuantity.setSelection(0, quatity.toString().length)
         inputQuantity.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 quatity = s?.toString().takeUnless { TextUtils.isEmpty(it) }?.toIntOrNull() ?: 1

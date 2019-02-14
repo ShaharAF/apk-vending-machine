@@ -40,10 +40,10 @@ class CandyApplication: Application(), AppsFlyerConversionListener {
         conversionData?.let { data ->
             data.map{ Log.d(AppsFlyerLib.LOG_TAG,"key: ${it.key} Value: ${it.value}") }
             if(data["is_first_launch"] == "true") {
-                if(data["campaign"] == "sales") {
-                    val discount = data["discount"]?.toInt() ?: 0
+                if(data["af_adset"] == "deferreddeeplink") {
+                    val productType = ProductType.fromAd(data["af_ad"])
                     with(Intent(this, BuyDiscountActivity::class.java)) {
-                        putExtra(BuyDiscountActivity.PARAM_DISCOUNT_PERCENT, discount)
+                        putExtra(BuyDiscountActivity.PARAM_AD, data["af_ad"])
                         startActivity(this@with)
                     }
                 }
