@@ -46,7 +46,8 @@
         <activity android:name=".BuyActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ConversionActivity" />
-        <activity android:name=".BuyDiscountActivity">
+        <activity android:name=".BuyDiscountActivity"
+            android:theme="@style/AppTheme.Sale">
             <intent-filter>
                 <action   android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

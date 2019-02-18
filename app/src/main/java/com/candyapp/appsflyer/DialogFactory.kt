@@ -1,6 +1,7 @@
 package com.candyapp.appsflyer
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -19,14 +20,17 @@ import com.appsflyer.AppsFlyerProperties
 
 
 object DialogFactory {
-    fun showAlert(context: Context, message: String, b: (AlertDialog.Builder.() -> Unit)? = null){
+    fun showAlert(context: Context, message: String, b: (AlertDialog.Builder.() -> Unit)? = null): AlertDialog{
         val adb = AlertDialog.Builder(context)
                 .setMessage(message)
                 .setPositiveButton(android.R.string.ok) { dialog, _ ->  dialog.dismiss() }
         b?.let {
             adb.b()
         }
-        adb.create().show()
+        with(adb.create()){
+            show()
+            return this
+        }
     }
 
     fun showEventSent(context: Context, name: String, value: String?) {
@@ -69,10 +73,12 @@ object DialogFactory {
         adb.setPositiveButton(android.R.string.ok) { dialog, _ -> dialog.dismiss() }.create().show()
     }
 
-    fun showProgressBar(context: Context) {
+    fun showProgressBar(context: Context, message: String? = context.getString(R.string.please_wait),
+                        onCanceled: DialogInterface.OnClickListener? = DialogInterface.OnClickListener { d, _ -> d.dismiss() }) {
         val adb = AlertDialog.Builder(context)
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_progress, null, false)
+        dialogView.findViewById<TextView>(R.id.tvLoading)?.text = message
         adb.setView(dialogView)
-        adb.setPositiveButton(android.R.string.ok) { dialog, _ -> dialog.dismiss() }.create().show()
+        adb.setNegativeButton(android.R.string.cancel, onCanceled).create().show()
     }
 }

@@ -2,16 +2,15 @@ package com.candyapp.appsflyer
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.text.Editable
-import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import com.appsflyer.*
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_buy_discount.*
 import org.json.JSONObject
 
@@ -27,11 +26,11 @@ class BuyDiscountActivity: Activity(), AppsFlyerConversionListener {
         val sp = getSharedPreferences("retargeting", 0)
         sp.edit().putString("json_data", json.takeIf { it.length()>0 }?.toString()).apply()
 
-        if(productType == null) {
-            productType = ProductType.fromAd(data?.get("af_ad"))
+        if(isShortOneLink) {
+            afAd = data?.get("af_ad")
+            data?.get("discount")?.toInt()?.let { discountPercent = it }
             uiHandler.sendMessage(Message().apply {
                 this.what = 1
-
             })
         }
         Log.i(AppsFlyerLib.LOG_TAG, "[$TAG][onAppOpenAttribution] <<<<<<<<<<<<<<<<<<<<<<<<<<<<")
@@ -56,59 +55,47 @@ class BuyDiscountActivity: Activity(), AppsFlyerConversionListener {
 
     companion object {
         val PARAM_AD = "PARAM_AD"
+        val PARAM_DISCOUNT = "PARAM_DISCOUNT"
     }
 
     var totalPrice: Float = 0F
     var totalOrigPrice: Float = 0F
-    var discountPercent: Int = 0
+    var discountPercent: Int? = 0
     var uiHandler = Handler(Handler.Callback {
         onProductTypeLoaded()
         updateUI()
         true
     })
-    private lateinit var item: ProductItem
-    private var productType: ProductType? = null
+    private var item: ProductItem? = null
+//    private var productType: ProductType? = null
+    private var afAd: String? = null
     private var quatity: Int = 1
+    private var isShortOneLink = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buy_discount)
-        AppsFlyerLib.getInstance().registerConversionListener(this@BuyDiscountActivity, this)
-        AppsFlyerLib.getInstance().sendDeepLinkData(this)
-        intent.data?.let checkLink@{ data ->
-            // From Scheme
-            if (data.scheme == "candyapp") {
-                data.getQueryParameter("af_ad")?.let {
-                    Log.i(AppsFlyerLib.LOG_TAG, "Deep Link Data: ${it}")
-                    ProductType.fromAd(ad = it)?.let {
-                        productType = it
-                    } ?: DialogFactory.showAlert(this@BuyDiscountActivity, getString(R.string.wrong_parameter))
-                }
-            }
-            // From OneLink
-            else if(data.scheme == "http" || data.scheme == "https") { //
-                // Short link
-                if(data.queryParameterNames.isNullOrEmpty()) { // If it's a short link
-                    DialogFactory.showProgressBar(this@BuyDiscountActivity)
-                } else {
-                    data.getQueryParameter("af_ad")?.let {
-                        Log.i(AppsFlyerLib.LOG_TAG, "Deep Link Data: ${it}")
-                        ProductType.fromAd(ad = it)?.let {
-                            productType = it
-                        }
-                    }
-                }
-            } else {
-
-            }
-        }?:kotlin.run {
-            productType = ProductType.fromAd(intent.getStringExtra(PARAM_AD))
-//            discountPercent = intent.getIntExtra(PARAM_DISCOUNT_PERCENT, 0)
+        btnPurchase.setOnClickListener {
+            val params = mutableMapOf<String, Any?>()
+            params.put(AFInAppEventParameterName.REVENUE, totalPrice)
+            params.put(AFInAppEventParameterName.CURRENCY, "USD")
+            params.put(AFInAppEventParameterName.QUANTITY, quatity)
+            params.put(AFInAppEventParameterName.PRICE, item?.price)
+            params.put(AFInAppEventParameterName.CONTENT, item?.name)
+            AppsFlyerLib.getInstance().trackEvent(applicationContext, AFInAppEventType.PURCHASE, params)
+            DialogFactory.showEventSent(this@BuyDiscountActivity, AFInAppEventType.PURCHASE, AFHelper.convertToJsonObject(params).toString())
         }
-        onProductTypeLoaded()
-        updateUI()
+        btnBack.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
+            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+        }
         inputQuantity.setText("$quatity")
-        inputQuantity.setSelection(0, quatity.toString().length)
+//        inputQuantity.setSelection(0, quatity.toString().length)
+        inputQuantity.clearFocus()
         inputQuantity.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 quatity = s?.toString().takeUnless { it.isNullOrEmpty() }?.toIntOrNull() ?: 1
@@ -122,49 +109,108 @@ class BuyDiscountActivity: Activity(), AppsFlyerConversionListener {
             }
 
         })
-        btnPurchase.setOnClickListener {
-            val params = mutableMapOf<String, Any?>()
-            params.put(AFInAppEventParameterName.REVENUE, totalPrice)
-            params.put(AFInAppEventParameterName.CURRENCY, "USD")
-            params.put(AFInAppEventParameterName.QUANTITY, quatity)
-            params.put(AFInAppEventParameterName.PRICE, item.price)
-            params.put(AFInAppEventParameterName.CONTENT, item.name)
-            AppsFlyerLib.getInstance().trackEvent(applicationContext, AFInAppEventType.PURCHASE, params)
-            DialogFactory.showEventSent(this@BuyDiscountActivity, AFInAppEventType.PURCHASE, AFHelper.convertToJsonObject(params).toString())
+        AppsFlyerLib.getInstance().registerConversionListener(this@BuyDiscountActivity, this)
+        AppsFlyerLib.getInstance().sendDeepLinkData(this)
+        intent.data?.let { data ->
+            Log.i(AppsFlyerLib.LOG_TAG, "Deep Link Data: $data")
+            // Short link
+            if (data.scheme == "https" && data.queryParameterNames.isNullOrEmpty()) { //
+                isShortOneLink = true
+                DialogFactory.showProgressBar(this@BuyDiscountActivity, onCanceled = DialogInterface.OnClickListener { d, _ -> d.dismiss() })
+                return@onCreate
+            }
+            // From Scheme
+            if (data.scheme == "candyapp" || (data.scheme == "https" && data.queryParameterNames.isNotEmpty())) {
+                readProductType(data.getQueryParameter("af_ad"), data.getQueryParameter("discount"))
+            }
+        } ?: kotlin.run {
+            readProductType(intent.getStringExtra(PARAM_AD), intent.getStringExtra(PARAM_DISCOUNT))
         }
-        btnBack.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-            finish()
-            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+        if (!isShortOneLink) {
+            onProductTypeLoaded()
+        }
+    }
+    private fun readProductType(ad: String?, discount: String?) {
+        afAd = ad
+        try {
+            discountPercent = discount?.toInt()
+        } catch (e: NumberFormatException) {
+            e.printStackTrace()
         }
     }
     private fun onProductTypeLoaded(){
-        when(productType){
-            ProductType.MM -> {
-                setTitle(R.string.buy_mm_discount)
-                discountPercent = 25
-                item = ProductItem(getString(R.string.mandm), R.mipmap.mandm, 10)
-            }
-            ProductType.Skittles -> {
-                setTitle(R.string.buy_skittles_discount)
-                discountPercent = 20
-                item = ProductItem(getString(R.string.skittles), R.mipmap.skittles, 10)
-            }
-            else -> {
-                DialogFactory.showAlert(this, getString(R.string.wrong_parameter))
-                return
+        afAd?.let { ad ->
+            ProductType.fromAd(ad)?.let { productType ->
+                when (productType) {
+                    ProductType.MM -> {
+                        setTitle(R.string.buy_mm_discount)
+                        discountPercent = discountPercent ?: 25
+                        item = ProductItem(getString(R.string.mandm), R.mipmap.mandm, 10)
+                    }
+                    ProductType.Skittles -> {
+                        setTitle(R.string.buy_skittles_discount)
+                        discountPercent = discountPercent ?: 20
+                        item = ProductItem(getString(R.string.skittles), R.mipmap.skittles, 10)
+                    }
+                    ProductType.iPhone -> {
+                        setTitle(R.string.product_on_sale)
+                        discountPercent = discountPercent ?: 5
+                        item = ProductItem(getString(R.string.iphone), R.mipmap.iphone, 999)
+                    }
+                    ProductType.Xiaomi -> {
+                        setTitle(R.string.product_on_sale)
+                        discountPercent = discountPercent ?: 20
+                        item = ProductItem(getString(R.string.xiaomi), R.mipmap.xiaomi, 699)
+                    }
+                    ProductType.BlackShoes -> {
+                        setTitle(R.string.product_on_sale)
+                        discountPercent = discountPercent ?: 60
+                        item = ProductItem(getString(R.string.black_shoes), R.mipmap.black_shoes, 100)
+                    }
+                    ProductType.RedShoes -> {
+                        setTitle(R.string.product_on_sale)
+                        discountPercent = discountPercent ?: 40
+                        item = ProductItem(getString(R.string.red_shoes), R.mipmap.red_shoes, 100)
+                    }
+                    ProductType.WhiteShoes -> {
+                        setTitle(R.string.product_on_sale)
+                        discountPercent = discountPercent ?: 30
+                        item = ProductItem(getString(R.string.white_shoes), R.mipmap.white_shoes, 100)
+                    }
+                    else -> {
+                        showError(getString(R.string.unsupport_product))
+                        return
+                    }
+                }
+                item?.let {
+                    imageView.setImageResource(it.imageRes)
+                    textTitle.text = it.name
+                    textPrice.text = " × $${it.price}"
+                }
+                updateUI()
+            }?: showError(getString(R.string.error_invalid_af_ad, ad))
+        } ?: showError(getString(R.string.error_no_af_ad))
+    }
+
+    private var errDialog: AlertDialog? = null
+
+    override fun onDestroy() {
+        errDialog=null
+        super.onDestroy()
+    }
+    fun showError(message: String) {
+        errDialog?.dismiss()
+        errDialog = DialogFactory.showAlert(this@BuyDiscountActivity, message) {
+            setPositiveButton(android.R.string.ok) {
+                d,_ -> d.dismiss()
+                errDialog=null
+                finish()
             }
         }
-        imageView.setImageResource(item.imageRes)
-        textTitle.text = item.name
-        textPrice.text = " × $${item.price}"
     }
     fun updateUI(){
-        totalOrigPrice = (quatity * item.price).toFloat()
-        totalPrice = totalOrigPrice * (100 - discountPercent) / 100F
+        totalOrigPrice = (quatity * (item?.price ?: 0)).toFloat()
+        totalPrice = totalOrigPrice * (100 - (discountPercent ?: 0)) / 100F
         textOrigPrice.text = String.format("$%.2f", totalOrigPrice)
         textViewDiscount.text = "-${discountPercent}" + "%"
         textTotalPrice.text = String.format("$%.2f", totalPrice)

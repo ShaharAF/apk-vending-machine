@@ -11,15 +11,17 @@ enum class ProductType {
 
     companion object {
         fun fromAd(ad: String?): ProductType?{
-            return when(ad?.toLowerCase()) {
-                "mm" -> ProductType.MM
-                "skittles" -> ProductType.Skittles
-                "xiaomi" -> ProductType.Xiaomi
-                "iphone" -> ProductType.iPhone
-                "whiteshoes" -> ProductType.WhiteShoes
-                "redshoes" -> ProductType.RedShoes
-                "blackshoes" -> ProductType.BlackShoes
-                else -> null
+            return ad?.let {
+                when (it.toLowerCase()) {
+                    "mm" -> ProductType.MM
+                    "skittles" -> ProductType.Skittles
+                    "xiaomi" -> ProductType.Xiaomi
+                    "iphone" -> ProductType.iPhone
+                    "whiteshoes" -> ProductType.WhiteShoes
+                    "redshoes" -> ProductType.RedShoes
+                    "blackshoes" -> ProductType.BlackShoes
+                    else -> null
+                }
             }
         }
     }

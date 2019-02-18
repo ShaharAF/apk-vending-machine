@@ -9,6 +9,13 @@
         <item name="android:colorButtonNormal">#77A41E</item>
     </style>
 
+    <style name="AppTheme.Sale">
+        <item name="android:colorPrimary">#FF6E40</item>
+        <item name="android:colorPrimaryDark">#FF5722</item>
+        <item name="android:colorAccent">#FBC02D</item>
+        <item name="android:colorButtonNormal">#FF5722</item>
+    </style>
+
     <style name="AppTheme.FullScreen">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>

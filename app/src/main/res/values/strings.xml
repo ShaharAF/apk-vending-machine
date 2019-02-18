@@ -4,6 +4,7 @@
     <string name="buy_skittles">Buy Skittles</string>
     <string name="buy_mm_discount"><![CDATA[Buy M&M 25% OFF]]></string>
     <string name="buy_skittles_discount"><![CDATA[Buy Skittles 20% OFF]]></string>
+    <string name="product_on_sale">Product On Sale</string>
     <string name="register">Register</string>
     <string name="buy">Purchase</string>
     <string name="back">Back</string>
@@ -36,7 +37,13 @@
     <string name="cost">Cost: </string>
     <string name="retargeting_info">Retargeting Data:</string>
     <string name="unsupport_product">Sorry, this campaign is over!</string>
-    <string name="wrong_parameter">Can not find af_ad from the link!</string>
+    <string name="error_no_af_ad">Invalid deep link!! \n\nCan not find af_ad from the link!</string>
+    <string name="error_invalid_af_ad">Invalid deep link!! \n\nThe campaign for %s is over!</string>
     <string name="buy_it_anyway">Buy it anyway</string>
-    <string name="please_wait">Please wait...</string>
+    <string name="please_wait">Please wait…</string>
+    <string name="iphone">iPhone Xs</string>
+    <string name="xiaomi">Xiaomi Mix 3</string>
+    <string name="black_shoes">Black Shoes</string>
+    <string name="red_shoes">Red Shoes</string>
+    <string name="white_shoes">White Shoes</string>
 </resources>
