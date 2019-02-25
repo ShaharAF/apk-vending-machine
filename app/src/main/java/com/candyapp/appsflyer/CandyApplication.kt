@@ -11,6 +11,8 @@ import org.json.JSONObject
 
 class CandyApplication: Application(), AppsFlyerConversionListener {
     companion object {
+        var isAttributed = false
+        var isDeferredDeepLink = false
         var devMode = BuildConfig.DEBUG
         var cv: MutableMap<String, String>? = null
     }
@@ -45,19 +47,22 @@ class CandyApplication: Application(), AppsFlyerConversionListener {
 
     override fun onInstallConversionDataLoaded(conversionData: MutableMap<String, String>?) {
         Log.d(AppsFlyerLib.LOG_TAG, "[$TAG][onInstallConversionDataLoaded]")
+        isDeferredDeepLink = false
         conversionData?.let { data ->
             data.map{ Log.d(AppsFlyerLib.LOG_TAG,"key: ${it.key} Value: ${it.value}") }
             if(data["is_first_launch"] == "true") {
                 if(data["af_adset"] == "deferreddeeplink") {
+                    isDeferredDeepLink = true
                     with(Intent(this, BuyDiscountActivity::class.java)) {
                         putExtra(BuyDiscountActivity.PARAM_AD, data["af_ad"])
                         putExtra(BuyDiscountActivity.PARAM_DISCOUNT, data["discount"])
                         startActivity(this@with)
                     }
+                    return
                 }
             }
         }
-        AppsFlyerLib.getInstance().
+        isAttributed = true
         cv = conversionData
     }
 

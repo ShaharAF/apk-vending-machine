@@ -33,6 +33,7 @@
             </intent-filter>
         </receiver>
         <activity android:name=".SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,12 +42,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop"
             />
-        <activity android:name=".BuyActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".ConversionActivity" />
+        <activity android:name=".BuyActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ConversionActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".BuyDiscountActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Sale">
             <intent-filter>
                 <action   android:name="android.intent.action.VIEW" />
