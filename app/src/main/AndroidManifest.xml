@@ -55,13 +55,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Sale">
             <intent-filter>
-                <action   android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data     android:scheme="candyapp" />
+                <data android:scheme="candyapp" />
             </intent-filter>
             <intent-filter>
-                <action   android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="https"

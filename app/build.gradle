@@ -10,9 +10,24 @@ android {
         applicationId "com.candyapp.appsflyer"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 7
-        versionName "0.0.7"
+        versionCode 8
+        versionName "0.0.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    flavorDimensions("App")
+    productFlavors {
+        GooglePlay {
+            dimension "App"
+            applicationId "com.candyapp.appsflyer"
+            versionCode 9
+            versionName "0.0.9"
+        }
+        Internal {
+            dimension "App"
+            applicationId "com.internal.candyapp.appsflyer"
+            versionCode 9
+            versionName "0.0.9"
+        }
     }
     buildTypes {
         release {
@@ -31,7 +46,7 @@ dependencies {
     implementation 'com.appsflyer:af-android-sdk:4.8.20@aar'
     implementation 'com.android.installreferrer:installreferrer:1.0'
     implementation 'com.google.code.gson:gson:2.8.4'
-    implementation 'com.google.firebase:firebase-core:16.0.7'
-    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.google.firebase:firebase-messaging:17.5.0'
 }
 apply plugin: 'com.google.gms.google-services'

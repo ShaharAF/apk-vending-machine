@@ -143,37 +143,30 @@ class BuyDiscountActivity: Activity(), AppsFlyerConversionListener {
             ProductType.fromAd(ad)?.let { productType ->
                 when (productType) {
                     ProductType.MM -> {
-                        setTitle(R.string.buy_mm_discount)
                         discountPercent = discountPercent ?: 25
                         item = ProductItem(getString(R.string.mandm), R.mipmap.mandm, 10)
                     }
                     ProductType.Skittles -> {
-                        setTitle(R.string.buy_skittles_discount)
                         discountPercent = discountPercent ?: 20
                         item = ProductItem(getString(R.string.skittles), R.mipmap.skittles, 10)
                     }
                     ProductType.iPhone -> {
-                        setTitle(R.string.product_on_sale)
                         discountPercent = discountPercent ?: 5
                         item = ProductItem(getString(R.string.iphone), R.mipmap.iphone, 999)
                     }
                     ProductType.Xiaomi -> {
-                        setTitle(R.string.product_on_sale)
                         discountPercent = discountPercent ?: 20
                         item = ProductItem(getString(R.string.xiaomi), R.mipmap.xiaomi, 699)
                     }
                     ProductType.BlackShoes -> {
-                        setTitle(R.string.product_on_sale)
                         discountPercent = discountPercent ?: 60
                         item = ProductItem(getString(R.string.black_shoes), R.mipmap.black_shoes, 100)
                     }
                     ProductType.RedShoes -> {
-                        setTitle(R.string.product_on_sale)
                         discountPercent = discountPercent ?: 40
                         item = ProductItem(getString(R.string.red_shoes), R.mipmap.red_shoes, 100)
                     }
                     ProductType.WhiteShoes -> {
-                        setTitle(R.string.product_on_sale)
                         discountPercent = discountPercent ?: 30
                         item = ProductItem(getString(R.string.white_shoes), R.mipmap.white_shoes, 100)
                     }
@@ -182,10 +175,13 @@ class BuyDiscountActivity: Activity(), AppsFlyerConversionListener {
                         return
                     }
                 }
-                item?.let {
-                    imageView.setImageResource(it.imageRes)
-                    textTitle.text = it.name
-                    textPrice.text = " × $${it.price}"
+                item?.let {prodItem ->
+                    discountPercent?.let { percent ->
+                        title = getString(R.string.buy_prod_discount, prodItem.name, "$percent%")
+                    }
+                    imageView.setImageResource(prodItem.imageRes)
+                    textTitle.text = prodItem.name
+                    textPrice.text = " × $${prodItem.price}"
                 }
                 updateUI()
             }?: showError(getString(R.string.error_invalid_af_ad, ad))

@@ -17,7 +17,7 @@ class CandyApplication: Application(), AppsFlyerConversionListener {
         var cv: MutableMap<String, String>? = null
     }
     val TAG = CandyApplication::class.java.simpleName
-    val appsFlyerDevKey: String = "HvYAWjCjQXts7xbPJuTjfn"
+    val appsFlyerDevKey: String = "AF_DEV_KEY_PLACEHOLDER"
     override fun onCreate() {
         super.onCreate()
         Log.d(AppsFlyerLib.LOG_TAG, "[$TAG][onCreate]")
@@ -25,6 +25,7 @@ class CandyApplication: Application(), AppsFlyerConversionListener {
         AppsFlyerLib.getInstance().setCollectIMEI(false)
         AppsFlyerLib.getInstance().setDebugLog(true)
         AppsFlyerLib.getInstance().enableUninstallTracking("717887381464")
+        AppsFlyerLib.getInstance().setCustomerUserId("guest")
         AppsFlyerLib.getInstance().startTracking(this)
     }
 

@@ -2,8 +2,7 @@
     <string name="app_name">Candy Shopping App</string>
     <string name="buy_mm"><![CDATA[Buy M&M]]></string>
     <string name="buy_skittles">Buy Skittles</string>
-    <string name="buy_mm_discount"><![CDATA[Buy M&M 25% OFF]]></string>
-    <string name="buy_skittles_discount"><![CDATA[Buy Skittles 20% OFF]]></string>
+    <string name="buy_prod_discount">Buy %s %s OFF</string>
     <string name="product_on_sale">Product On Sale</string>
     <string name="register">Register</string>
     <string name="buy">Purchase</string>
